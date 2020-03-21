@@ -2,12 +2,8 @@ import React,{Component} from 'react'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import {NavLink} from 'react-router-dom'
 
-const items = [
-    { name: 'home', label: 'Home' },
-    { name: 'billing', label: 'Billing' },
-    { name: 'settings', label: 'Settings' },
-  ]
 
 export class Sidebar extends Component {
     constructor(props){
@@ -27,11 +23,15 @@ export class Sidebar extends Component {
         return (
             <div className="sidebar" style={this.state.bar?sidebar:sidebar1}>
           <List disablePadding dense>
-      {items.map(({ label, name, ...rest }) => (
-        <ListItem key={name} button {...rest}>
-          <ListItemText>{label}</ListItemText>
-        </ListItem>
-      ))}
+      <ListItem button>
+        <ListItemText><NavLink to='/dashboard/createprofile'> Create Profile</NavLink> </ListItemText>
+      </ListItem>
+      <ListItem button>
+        <ListItemText>Billing</ListItemText>
+      </ListItem>
+      <ListItem button>
+        <ListItemText>Settings</ListItemText>
+      </ListItem>
     </List>
     </div>
           

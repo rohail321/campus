@@ -11,21 +11,70 @@ export class Login extends Component {
             email:'',
             password:''
         }
-    }
+	}
+	
 
-   
+
 
     onChange=(e)=>this.setState({[e.target.name]:e.target.value})
     onSubmit=(e)=>{
         const {history}=this.props
-        e.preventDefault()
-        firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
-        .then((res)=>{
-            console.log(res)
-            history.push('/dashboard')
-        })
+		e.preventDefault()
+		firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
+		.then(res=>{
+			setTimeout(() => {
+				
+			}, 2000);
+			const users =firebase.auth().currentUser
+			
+		if(!users.emailVerified){
+			history.push('/verifyemail')
 
-        console.log(this.state)
+		}
+			else{console.log(res)
+				history.push('/dashboard')}
+		})
+		.catch(err=>{
+			alert(err)
+		})
+		
+		
+
+
+		
+//         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+//   // Additional state parameters can also be passed via URL.
+//   // This can be used to continue the user's intended action before triggering
+//   // the sign-in operation.
+//   // Get the email if available. This should be available if the user completes
+//   // the flow on the same device where they started it.
+//   var email = window.localStorage.getItem('emailForSignIn');
+//   if (!email) {
+//     // User opened the link on a different device. To prevent session fixation
+//     // attacks, ask the user to provide the associated email again. For example:
+//     email = window.prompt('Please provide your email for confirmation');
+//   }
+//   // The client SDK will parse the code from the link for you.
+//   firebase.auth().signInWithEmailLink(email, window.location.href)
+//     .then(function(result) {
+//       // Clear email from storage.
+// 	  window.localStorage.removeItem('emailForSignIn');
+// 	  history.push('/dashboard')
+// 	  console.log(result)
+//       // You can access the new user via result.user
+//       // Additional user info profile not available via:
+//       // result.additionalUserInfo.profile == null
+//       // You can check if the user is new or existing:
+//       // result.additionalUserInfo.isNewUser
+//     })
+//     .catch(function(error) {
+//       // Some error occurred, you can inspect the code: error.code
+//       // Common errors could be invalid email and invalid or expired OTPs.
+//     });
+// }
+
+
+console.log(this.state)
     }
 
     render() {
@@ -40,12 +89,12 @@ export class Login extends Component {
 					</span>
 
 					<div className="wrap-input100 validate-input m-b-16" data-validate="Please enter emai">
-						<input className="input100" type="email" name="email" onChange={this.onChange} value={this.state.email}  placeholder="Email"/>
+						<input className="input100" type="email" name="email" onChange={this.onChange} value={this.state.email}  placeholder="Email" required/>
 						<span className="focus-input100"></span>
 					</div>
 
 					<div className="wrap-input100 validate-input" data-validate = "Please enter password">
-						<input className="input100" type="password" name="password" onChange={this.onChange} value={this.state.password} placeholder="Password"/>
+						<input className="input100" type="password" name="password" onChange={this.onChange} value={this.state.password} placeholder="Password" required/>
 						<span className="focus-input100"></span>
 					</div>
 
@@ -54,9 +103,9 @@ export class Login extends Component {
 							Forgot
 						</span>
 
-						<a href="#" className="txt2">
+						<NavLink to='' className="txt2">
 							Username / Password?
-						</a>
+						</NavLink>
 					</div>
 
 					<div className="container-login100-form-btn">
