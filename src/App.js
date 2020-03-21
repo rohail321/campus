@@ -1,26 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router,Route,Switch, BrowserRouter} from 'react-router-dom'
+import Login from './component/auth/Login'
+import Signup from './component/auth/Signup'
+import Dashboard from './component/dashboard/Dashboard'
+import firebase from './firebase'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={}
+  }
+authListner=()=>{
+  firebase.auth().onAuthStateChanged((user)=>{
+    if(user){
+      localStorage.setItem('user',user.uid)
+      console.log(user)
+    }
+    else{
+      localStorage.removeItem('user')
+    }
+  })
+}
+
+  render(){
+    return (
+      <BrowserRouter>
+      <Switch>
+        <Route exact path='/'><Login/></Route>
+        <Route exact path='/signup'><Signup/></Route>
+        <Route exact path='/dashboard'><Dashboard/></Route>
+  
+  
+      </Switch>
+      </BrowserRouter>
+     
+    );
+  }
+  
 }
 
 export default App;
