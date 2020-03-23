@@ -24,14 +24,18 @@ export class Sidebar extends Component {
             <div className="sidebar" style={this.state.bar?sidebar:sidebar1}>
           <List disablePadding dense>
       <ListItem button>
-        <ListItemText><NavLink to='/dashboard/createprofile'> Create Profile</NavLink> </ListItemText>
+        <NavLink to='/dashboard/createprofile' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Profile</NavLink> 
+      
       </ListItem>
+      <hr/>
       <ListItem button>
-        <ListItemText>Billing</ListItemText>
+      <NavLink to='/dashboard/' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Button</NavLink> 
       </ListItem>
+      <hr/>
       <ListItem button>
-        <ListItemText>Settings</ListItemText>
+      <NavLink to='/dashboard/' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Button</NavLink> 
       </ListItem>
+      <hr/>
     </List>
     </div>
           

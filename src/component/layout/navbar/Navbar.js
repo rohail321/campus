@@ -23,8 +23,8 @@ export class Navbar extends Component {
             
 
 <nav className="navbar navbar-expand-lg navbar-light bg-light">
-  <NavLink className="navbar-brand" to=''>  
-  <i class="fas fa-bars"></i>
+  <NavLink className="navbar-brand" to='/dashboard'>  
+  <i className="fas fa-bars"></i>
 </NavLink>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
@@ -32,13 +32,16 @@ export class Navbar extends Component {
   <div className="collapse navbar-collapse" id="navbarNavDropdown">
     <ul className="navbar-nav ml-auto">
       <li className="nav-item active">
-        <NavLink className="nav-link" to=''>Home <span className="sr-only">(current)</span></NavLink>
+        <NavLink className="nav-link" to='/dashboard'>Home <span className="sr-only">(current)</span></NavLink>
       </li>
       <li className="nav-item">
-        <NavLink className="nav-link" to=''>Features</NavLink>
+        <NavLink className="nav-link" to=''>Vacancy</NavLink>
       </li>
       <li className="nav-item">
-        <NavLink className="nav-link" to=''>Pricing</NavLink>
+        <NavLink className="nav-link" to=''>Company</NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to='/dashboard/studentlist'>Sudent</NavLink>
       </li>
       <li className="nav-item dropdown">
         <NavLink className="nav-link dropdown-toggle" to='' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

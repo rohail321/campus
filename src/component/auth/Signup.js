@@ -18,11 +18,10 @@ export class Signup extends Component {
 
     onChange=(e)=>this.setState({[e.target.name]:e.target.value})
 
-    onRadioChange=(e)=>{
-        this.setState({user:e.target.value})
+    onRadioChange=(e)=>this.setState({user:e.target.value})
+        
 
-    }
-
+  
 
    
 
