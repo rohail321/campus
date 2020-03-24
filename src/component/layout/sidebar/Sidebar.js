@@ -15,10 +15,7 @@ export class Sidebar extends Component {
     }
 
 
-    handleClick=()=>{
-
-    }
-
+    
     render() {
         return (
             <div className="sidebar" style={this.state.bar?sidebar:sidebar1}>
@@ -29,11 +26,11 @@ export class Sidebar extends Component {
       </ListItem>
       <hr/>
       <ListItem button>
-      <NavLink to='/dashboard/' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Button</NavLink> 
+      <NavLink to='/dashboard/companyform' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Company Form</NavLink> 
       </ListItem>
       <hr/>
       <ListItem button>
-      <NavLink to='/dashboard/' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Button</NavLink> 
+      <NavLink to='/dashboard/createvacancy' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Vacancy</NavLink> 
       </ListItem>
       <hr/>
     </List>

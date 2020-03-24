@@ -94,7 +94,7 @@ export class Signup extends Component {
         <input type="password" id="password" name="password1" onChange={this.onChange} value={this.state.password1} required />
         
         
-        <input type="radio" id="student" value="student" checked={this.state.user==='student'} onChange={this.onRadioChange}  name="student" required /><label htmlFor="student" className="light">Student</label><br/>
+        <input type="radio" id="student" value="student" checked={this.state.user==='student'} onChange={this.onRadioChange}  name="student"  /><label htmlFor="student" className="light">Student</label><br/>
         <input type="radio" id="company" value="company" checked={this.state.user==='company'} onChange={this.onRadioChange} name="company" /><label htmlFor="company" className="light">Company</label><br/>
         <input type="radio" id="admin" value="admin" checked={this.state.user==='admin'} onChange={this.onRadioChange}  name="admin" /><label htmlFor="admin" className="light">Admin</label>
 

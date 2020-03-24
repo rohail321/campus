@@ -43,6 +43,7 @@ export class Navbar extends Component {
       <li className="nav-item">
         <NavLink className="nav-link" to='/dashboard/studentlist'>Sudent</NavLink>
       </li>
+    
       <li className="nav-item dropdown">
         <NavLink className="nav-link dropdown-toggle" to='' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Welcome {this.state.email}

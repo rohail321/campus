@@ -8,6 +8,9 @@ import firebase from './firebase'
 import Verification from './component/layout/verify/Verification'
 import CreateProfile from './component/form/CreateProfile'
 import StudentList from './component/dashboard/StudentList'
+import CreateCompany from './component/form/CreateCompany'
+import CreateVacancy from './component/form/CreateVacancy'
+import ForgotPassword from'./component/form/ForgotPassword'
 
 class App extends Component {
   constructor(props){
@@ -39,6 +42,12 @@ authListner=()=>{
         <Route exact path='/dashboard/createprofile'><CreateProfile/></Route>
         <Route exact path='/verifyemail'><Verification/></Route>
         <Route exact path='/dashboard/studentlist'><StudentList/></Route>
+        <Route exact path='/dashboard/companyform'><CreateCompany/></Route>
+        <Route exact path='/dashboard/createvacancy'><CreateVacancy/> </Route>
+        <Route exact path='/forgotpassword'><ForgotPassword/> </Route>
+
+
+
 
 
 

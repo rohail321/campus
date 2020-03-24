@@ -74,7 +74,7 @@ console.log(this.state)
 							Forgot
 						</span>
 
-						<NavLink to='' className="txt2">
+						<NavLink to='/forgotpassword' className="txt2">
 							Username / Password?
 						</NavLink>
 					</div>
