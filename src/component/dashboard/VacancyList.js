@@ -9,31 +9,74 @@ export class VacancyList extends Component {
         super(props)
         this.state={
             vacancy:[],
-            spinner:true
+            spinner:true,
+            user:"",
+            id:''
 
         }
     }
 
-    componentDidMount(){
-        setTimeout(() => {
-            this.setState({spinner:false})
-        }, 5000);
+   async componentDidMount(){
+        this.currentUser().then((data)=>{
+            this.setState({id:data})
+            this.vacancyList()
+            this.getUser()
 
-        setTimeout(() => {
-            const db=firebase.firestore()
-       db.collection('createvacancy').get()
-       .then(doc=>{
-           doc.forEach(res=>{
-               this.setState({vacancy:this.state.vacancy.concat(res.data())})
-               
+
+        })
+
+
+    }
+    vacancyList=async ()=>{
+        const db=await firebase.firestore()
+        const doc=await db.collection('createvacancy').get()
+        ;(await doc).forEach((res)=>{
+         this.setState({vacancy:this.state.vacancy.concat(res.data())})
+         this.setState({spinner:false})
+        })
+        if(this.state.vacancy.length===0){
+            alert('No Profile Exist')
+            this.setState({spinner:false})
+
+        }
+    }
+    deleteUser=(e)=>{
+        let currentuserid=e.target.id
+        let userdelete=this.state.vacancy.filter((res)=>(currentuserid!==res.id))
+        this.setState({vacancy:userdelete})
+        const db=firebase.firestore()
+        let userdb= db.collection("createvacancy").where('id', '==', currentuserid)
+        userdb.get().then((res)=>{
+            res.forEach((doc)=>{
+                doc.ref.delete()
             })
-       })
-        }, 5000);
+        })
+
+    }
+    getUser=async ()=>{
+        const db=await firebase.firestore()
+        let getDoc=await db.collection('user')
+        const doc=await getDoc.where('id', '==', this.state.id).get()
+        doc.forEach((res)=>{
+            this.setState({user:res.data().user})
+        })
         
-       
     }
 
+    currentUser= ()=>{
+        return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })}
+
     render() {
+        console.log(this.state)
         let spiner
         let content
         if(this.state.spinner){
@@ -42,7 +85,7 @@ export class VacancyList extends Component {
 
         }
         else{
-            content=(<Vacancylist vacancy={this.state.vacancy}/>)
+            content=(<Vacancylist vacancy={this.state.vacancy} deleteUser={this.deleteUser} user={this.state.user} />)
         }
         return (
             <div>

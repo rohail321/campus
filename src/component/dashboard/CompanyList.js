@@ -29,15 +29,18 @@ export class CompanyList extends Component {
         
     }
 
-    getProfile=()=>{
-        const db=firebase.firestore()
-       db.collection('createcompany').get()
-       .then(doc=>{
-           doc.forEach(res=>{
-               this.setState({companyprofile:this.state.companyprofile.concat(res.data())})
-               this.setState({spinner:false})
-           })
-       })
+    getProfile=async ()=>{
+        const db=await firebase.firestore()
+       const doc= await db.collection('createcompany').get()
+       ;(await doc).forEach((res)=>{
+           this.setState({companyprofile:this.state.companyprofile.concat(res.data())})
+       this.setState({spinner:false})})
+       
+       if(this.state.companyprofile.length===0){
+        alert('No Profile Exist')
+        this.setState({spinner:false})
+
+    }
     }
 
     deleteUser=(e)=>{

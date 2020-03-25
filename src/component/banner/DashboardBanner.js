@@ -16,7 +16,6 @@ const DashboardBanner = () => {
                 </p>
                 <p>WELCOME NEW USER PLEASE CREATE YOUR PROFILE WHICH CAN BE SEEN BY COMPANY WHO ARE RECURTING.CLICK BUTTON IN ORDER CREATE FILE</p>
                 <br/>
-                <NavLink to='/dashboard/createprofile' className="mt-auto btn btn-primary  ">Ceate Profile</NavLink>
               </div>
             </div>
           

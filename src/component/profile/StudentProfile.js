@@ -31,20 +31,26 @@ export class StudentProfile extends Component {
     
     }
 
-    checkUserProfile=()=>{
-        const db= firebase.firestore()
+    checkUserProfile=async ()=>{
+        const db=await firebase.firestore()
         
-        const getDoc= db.collection('createprofile')
-        getDoc.where('id', '==', this.state.id).get()
-        .then(res=>{
-            res.forEach((result)=>{
+        const getDoc=await db.collection('createprofile')
+        const doc=getDoc.where('id', '==', this.state.id).get()
+        
+        
+        ;(await doc).forEach((result)=>{
                 this.setState({profile:true})
                this.setState({stdProfile:result.data()})
                console.log(this.state.stdProfile)
                this.setState({spinner:false})
 
             })
-        })
+             
+       if(this.state.stdProfile.length===0){
+        alert('No Profile Exist')
+        this.setState({spinner:false})
+       }
+       
 
         
        

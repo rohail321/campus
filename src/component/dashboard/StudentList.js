@@ -10,29 +10,60 @@ export class StudentList extends Component {
         super(props)
         this.state={
             studentProfile:[],
-            spinner:true
+            spinner:true,
+            id:'',
+            user:''
 
         }
     }
      componentDidMount(){
-        
+        this.currentUser().then((data)=>{
+            this.setState({id:data})
+            this.getUser()
+            this.profileList()
+        })
        
-        const db=firebase.firestore()
-       db.collection('createprofile').get()
-       .then(doc=>{
-           doc.forEach(res=>{
-               this.setState({studentProfile:this.state.studentProfile.concat(res.data())})
-               this.setState({spinner:false})
-
-           })
-       })
+       
     }
+    currentUser= ()=>{
+        return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })}
+
+        getUser=async ()=>{
+            const db=await firebase.firestore()
+            let getDoc=await db.collection('user')
+            const doc=await getDoc.where('id', '==', this.state.id).get()
+            doc.forEach((res)=>{
+                this.setState({user:res.data().user})
+            })
+        }
+
+        profileList=async ()=>{
+            const db=await firebase.firestore()
+            const doc=await db.collection('createprofile').get()
+            ;(await doc).forEach((res)=>{
+                this.setState({studentProfile:this.state.studentProfile.concat(res.data())})
+                    this.setState({spinner:false})
+            })
+            if(this.state.studentProfile.length===0){
+                alert('No Profile Exist')
+                this.setState({spinner:false})
+
+            }
+            
+        }
 
     deleteUser=(e)=>{
         let currentuserid=e.target.id
-        console.log(currentuserid)
-        console.log(this.state.id)
-        let userdelete=this.state.companyprofile.filter((res)=>(currentuserid!==res.id))
+        let userdelete=this.state.studentProfile.filter((res)=>(currentuserid!==res.id))
         this.setState({studentProfile:userdelete})
         const db=firebase.firestore()
         let userdb= db.collection("createprofile").where('id', '==', currentuserid)
@@ -41,8 +72,7 @@ export class StudentList extends Component {
                 doc.ref.delete()
             })
         })
-        console.log(userdelete)
-
+        
     }
     render() {
         let spiner
@@ -53,7 +83,7 @@ export class StudentList extends Component {
 
         }
         else{
-            content=(<List user={this.state.studentProfile} deleteUser={this.deleteUser} />)
+            content=(<List profile={this.state.studentProfile} deleteUser={this.deleteUser} user={this.state.user}/>)
         }
         return (
             <div>

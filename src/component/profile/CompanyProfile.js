@@ -30,22 +30,22 @@ export class CompanyProfile extends Component {
   
     }
 
-    checkUserProfile=()=>{
-        console.log(this.state)
-        const db= firebase.firestore()
-            const getDoc= db.collection('createcompany')
-            console.log(getDoc)
-        getDoc.where('id', '==', this.state.id).get()
-        .then(res=>{
-            res.forEach((result)=>{
-                this.setState({profile:true})
+    checkUserProfile=async ()=>{
+        const db=await firebase.firestore()
+            const getDoc=await db.collection('createcompany')
+            
+        const doc=getDoc.where('id', '==', this.state.id).get()
+        ;(await doc).forEach((result)=>{
+            this.setState({profile:true})
                this.setState({stdProfile:result.data()})
                this.setState({spinner:false})
-               console.log(this.state)
-
-
-            })
         })
+      
+               
+       if(this.state.stdProfile.length===0){
+        alert('No Profile Exist')
+        this.setState({spinner:false})
+       }
         
         
 

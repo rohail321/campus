@@ -24,7 +24,6 @@ export class Dashboard extends Component {
         this.getcurrentUser().then((data)=>{
             this.setState({id:data})
             this.checkUser()
-            console.log(this.state)
 
         })
         

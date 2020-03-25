@@ -27,23 +27,24 @@ export class AdminProfile extends Component {
 
   
     }
-    checkUserProfile=()=>{
-        console.log(this.state.id)
+    checkUserProfile=async()=>{
+        
 
-        const db= firebase.firestore()
-        setTimeout(() => {
-            const getDoc= db.collection('createadmin')
-        getDoc.where('id', '==', this.state.id).get()
-        .then(res=>{
-            res.forEach((result)=>{
-                this.setState({profile:true})
+        const db=await firebase.firestore()
+        
+            const getDoc=await db.collection('createadmin')
+        const doc=await getDoc.where('id', '==', this.state.id).get()
+        ;(await doc).forEach((result)=>{
+            this.setState({profile:true})
                this.setState({adminprofile:result.data()})
                this.setState({spinner:false})
-
-
-            })
         })
-        }, 3000);
+        if(this.state.profile.length===0){
+            alert('No Profile Exist')
+            this.setState({spinner:false})
+           }
+            
+     
  
         
     }
