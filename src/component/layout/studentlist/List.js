@@ -1,9 +1,9 @@
 import React from 'react'
 import './List.css'
 
-const List = ({profile}) => {
+const List = ({user,deleteuser}) => {
 
-   let student= profile.map(data=>(
+   let student= user.map(data=>(
         <div key={data.fullname} className="container">
    
 
@@ -46,7 +46,7 @@ const List = ({profile}) => {
         
 
     </div>
-    <button type="button" className="btn btn-danger">Delete</button>
+    <button type="button" className="btn btn-danger" style={{visibility:`${user==='admin'?'visible':'hidden'}`}} id={data.id} onClick={deleteuser}>Delete</button>
 
 </div>
     ))

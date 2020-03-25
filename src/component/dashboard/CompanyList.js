@@ -18,18 +18,28 @@ export class CompanyList extends Component {
         }
     }
      componentDidMount(){
-        setTimeout(() => {
-            this.setState({spinner:false})
-        }, 4000);
+        
+
+        this.currentUser().then((data)=>{
+            this.setState({id:data})
+            this.getUser()
+            this.getProfile()
+        })
+
+        
+    }
+
+    getProfile=()=>{
         const db=firebase.firestore()
        db.collection('createcompany').get()
        .then(doc=>{
            doc.forEach(res=>{
                this.setState({companyprofile:this.state.companyprofile.concat(res.data())})
+               this.setState({spinner:false})
            })
        })
-       this.currentUser()
     }
+
     deleteUser=(e)=>{
         let currentuserid=e.target.id
         console.log(currentuserid)
@@ -48,23 +58,31 @@ export class CompanyList extends Component {
     }
 
     currentUser= ()=>{
-        setTimeout(() => {
-            const userCurrent= firebase.auth().currentUser
-        this.setState({id:userCurrent.uid})
-        const db=firebase.firestore()
-        let getDoc=db.collection('user')
-        getDoc.where('id', '==', userCurrent.uid).get()
-        .then((doc)=>{
-            doc.forEach((res)=>{
-                console.log(res.data())
-                this.setState({user:res.data().user})
-                console.log(this.state)
+        return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
             })
         })
+         
+        
             
-        }, 5000);
         
         
+    }
+    getUser=()=>{
+        const db=firebase.firestore()
+        let getDoc=db.collection('user')
+        getDoc.where('id', '==', this.state.id).get()
+        .then((doc)=>{
+            doc.forEach((res)=>{
+                this.setState({user:res.data().user})
+            })
+        })
     }
     
     render() {

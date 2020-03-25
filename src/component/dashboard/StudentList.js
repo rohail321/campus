@@ -15,16 +15,34 @@ export class StudentList extends Component {
         }
     }
      componentDidMount(){
-        setTimeout(() => {
-            this.setState({spinner:false})
-        }, 4000);
+        
+       
         const db=firebase.firestore()
        db.collection('createprofile').get()
        .then(doc=>{
            doc.forEach(res=>{
                this.setState({studentProfile:this.state.studentProfile.concat(res.data())})
+               this.setState({spinner:false})
+
            })
        })
+    }
+
+    deleteUser=(e)=>{
+        let currentuserid=e.target.id
+        console.log(currentuserid)
+        console.log(this.state.id)
+        let userdelete=this.state.companyprofile.filter((res)=>(currentuserid!==res.id))
+        this.setState({studentProfile:userdelete})
+        const db=firebase.firestore()
+        let userdb= db.collection("createprofile").where('id', '==', currentuserid)
+        userdb.get().then((res)=>{
+            res.forEach((doc)=>{
+                doc.ref.delete()
+            })
+        })
+        console.log(userdelete)
+
     }
     render() {
         let spiner
@@ -35,7 +53,7 @@ export class StudentList extends Component {
 
         }
         else{
-            content=(<List profile={this.state.studentProfile}/>)
+            content=(<List user={this.state.studentProfile} deleteUser={this.deleteUser} />)
         }
         return (
             <div>

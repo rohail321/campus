@@ -19,14 +19,15 @@ export class Dashboard extends Component {
     }
 
     componentDidMount(){
-        setTimeout(() => {
-            this.setState({spinner:false})
-        }, 6000);
-        this.getcurrentUser()
-        setTimeout(() => {
+        
+      
+        this.getcurrentUser().then((data)=>{
+            this.setState({id:data})
             this.checkUser()
+            console.log(this.state)
 
-        }, 4000);
+        })
+        
     }
 
     checkUser=()=>{
@@ -37,16 +38,28 @@ export class Dashboard extends Component {
             res.forEach((result)=>{
                 this.setState({profile:true})
                this.setState({user:result.data().user})
+               this.setState({spinner:false})
+               console.log(this.state)
+
+
 
             })
         })
     }
 
     getcurrentUser=()=>{
-        setTimeout(() => {
-            const currentUser=firebase.auth().currentUser
-            this.setState({id:currentUser.uid})
-        }, 3000);
+        return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })
+           
+     
        
     }
     render() {

@@ -17,20 +17,21 @@ export class StudentProfile extends Component {
     }
 
 
-   async componentDidMount(){
-        this.currentUser()
-        setTimeout(() => {
-            this.setState({spinner:false})
-        }, 4000);
-        
-        setTimeout(() => {
+   componentDidMount(){
+        this.currentUser().then((data=>{
+            this.setState({id:data})
             this.checkUserProfile()
+        }))
+        
+        
+        
+       
+            
 
-        }, 3000);
+    
     }
 
     checkUserProfile=()=>{
-        console.log(this.state.id)
         const db= firebase.firestore()
         
         const getDoc= db.collection('createprofile')
@@ -40,6 +41,8 @@ export class StudentProfile extends Component {
                 this.setState({profile:true})
                this.setState({stdProfile:result.data()})
                console.log(this.state.stdProfile)
+               this.setState({spinner:false})
+
             })
         })
 
@@ -49,8 +52,17 @@ export class StudentProfile extends Component {
     }
 
     currentUser=()=>{
-        const currentUser=localStorage.getItem('user')
-        this.setState({id:currentUser})
+        return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })
+      
         
         
     }

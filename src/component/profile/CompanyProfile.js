@@ -17,34 +17,35 @@ export class CompanyProfile extends Component {
     }
 
 
-   async componentDidMount(){
-        this.currentUser()
-        setTimeout(() => {
-            this.setState({spinner:false})
-        }, 4000);
+   componentDidMount(){
+        this.currentUser().then((data)=>{
+            this.setState({id:data})
+            this.checkUserProfile()
+
+        })
+        
         
      
-            this.checkUserProfile()
 
   
     }
 
     checkUserProfile=()=>{
-        console.log(this.state.id)
-
+        console.log(this.state)
         const db= firebase.firestore()
-        setTimeout(() => {
             const getDoc= db.collection('createcompany')
+            console.log(getDoc)
         getDoc.where('id', '==', this.state.id).get()
         .then(res=>{
             res.forEach((result)=>{
                 this.setState({profile:true})
                this.setState({stdProfile:result.data()})
-               console.log(this.state.stdProfile)
+               this.setState({spinner:false})
+               console.log(this.state)
+
 
             })
         })
-        }, 3000);
         
         
 
@@ -54,14 +55,20 @@ export class CompanyProfile extends Component {
     }
 
     currentUser=()=>{
-        const currentUser=localStorage.getItem('user')
-        this.setState({id:currentUser})
-        console.log(currentUser)
+        return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })
         
         
     }
     render() {
-        console.log(this.state)
         let banner
         let spiner
         if(this.state.spinner){

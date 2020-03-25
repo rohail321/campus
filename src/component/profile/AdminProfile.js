@@ -16,13 +16,14 @@ export class AdminProfile extends Component {
     }
 
     async componentDidMount(){
-        this.currentUser()
-        setTimeout(() => {
-            this.setState({spinner:false})
-        }, 4000);
+        this.currentUser().then((data)=>{
+            this.setState({id:data})
+            this.checkUserProfile()
+
+        })
+        
         
      
-            this.checkUserProfile()
 
   
     }
@@ -37,8 +38,8 @@ export class AdminProfile extends Component {
             res.forEach((result)=>{
                 this.setState({profile:true})
                this.setState({adminprofile:result.data()})
-               console.log(this.state.adminprofile)
-               console.log(this.state.adminprofile)
+               this.setState({spinner:false})
+
 
             })
         })
@@ -47,9 +48,16 @@ export class AdminProfile extends Component {
         
     }
     currentUser=()=>{
-        const currentUser=localStorage.getItem('user')
-        this.setState({id:currentUser})
-        console.log(currentUser)
+        return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })
   
     }
     render() {
