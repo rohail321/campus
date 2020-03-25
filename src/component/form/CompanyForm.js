@@ -42,7 +42,7 @@ const CompanyForm = ({onChange,onSubmit,state,success}) => {
 					<div className="container-contact1-form-btn">
 						<button className="contact1-form-btn">
 							<span>
-								Send Email
+								Create Company Profile
 								<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
 							</span>
 						</button>

@@ -26,11 +26,16 @@ export class Sidebar extends Component {
       </ListItem>
       <hr/>
       <ListItem button>
-      <NavLink to='/dashboard/companyform' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Company Form</NavLink> 
+      <NavLink to='/dashboard/companyform' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Company</NavLink> 
       </ListItem>
       <hr/>
       <ListItem button>
       <NavLink to='/dashboard/createvacancy' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Vacancy</NavLink> 
+      </ListItem>
+      <hr/>
+
+      <ListItem button>
+      <NavLink to='/dashboard/createadmin' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Admin</NavLink> 
       </ListItem>
       <hr/>
     </List>

@@ -1,0 +1,339 @@
+/*This code is property of Conor McNamara*/
+/*https://codepen.io/conorjmcnamara/*/
+/*https://linkedin.com/in/conorjmcnamara/*/
+/*https://twitter.com/conorjmcnamara/*/
+
+@import url('https://fonts.googleapis.com/css?family=Niramit');
+*,
+*:before,
+*:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+p {
+    margin: 3px 0;
+    line-height: 1.5;
+}
+
+
+
+.btn:hover {
+    -ms-transform: scale(1.05);
+    /* IE 9 */
+    -webkit-transform: scale(1.05);
+    /* Safari 3-8 */
+    transform: scale(1.05);
+    color: #18DFDF;
+}
+
+
+/* Colours */
+
+.green {
+    background-color: #FAFAFA;
+    /* button background */
+}
+
+.green p:hover {
+    color: #18DFDF;
+}
+
+.a {
+    letter-spacing: 0.6px;
+    font-size: 21px;
+}
+
+.a h3 {
+    color: rgba(0, 0, 0, .8);
+    font-size: 41px;
+    letter-spacing: 0.6px;
+}
+
+*,
+*:after,
+*:before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Niramit', sans-serif;
+    color: #767676;
+    /*the copyright colors text*/
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #767676;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Niramit');
+.blog-card {
+    display: block;
+    position: relative;
+    background: #444;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat !important;
+    width: 85%;
+    max-width: 700px;
+    height: 340px;
+    box-shadow: 4px 8px 28px rgba(39, 44, 49, .1), 1px 3px 8px rgba(39, 44, 49, .075);
+    margin: 12.5vh auto;
+    overflow: hidden !important;
+    top: 3rem;
+}
+
+.btn5 {
+    color: #FFFEFE;
+}
+
+.btn5 {
+    padding: 0.6em 3.3em 0.6em;
+    border-radius: 3px;
+    margin: 10px 8px 8px 8px;
+    color: #18DFDF;
+    background-color: #FFFEFE;
+    display: inline-block;
+    background: #e74c3c;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    font-weight: 500;
+    font-size: 0.1em;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    margin-top: 15.4rem;
+}
+
+.btn5.green.circular {
+    font-size: 1.1em;
+}
+
+.btn5 {
+    background-color: #FFFEFE;
+}
+
+.btn5:hover {
+    color: #18DFDF;
+    background-color: #FFFEFE;
+}
+
+.btn5:hover {
+    -ms-transform: scale(1.05);
+    /* IE 9 */
+    -webkit-transform: scale(1.05);
+    /* Safari 3-8 */
+    transform: scale(1.05);
+    color: #18DFDF;
+}
+
+.btn5:active {
+    -webkit-transform: scale(0.80);
+    -moz-transform: scale(0.80);
+    -ms-transform: scale(0.80);
+    -o-transform: scale(0.80);
+    transform: scale(0.80);
+}
+
+.btn5.block {
+    display: block !important;
+}
+
+.btn5.circular {
+    border-radius: 50em !important;
+}
+
+.btn5.circular:hover {
+    color: #18DFDF;
+}
+
+.blog-card .content-mask {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.9);
+    width: 81%;
+    height: 100%;
+    padding: 0.75em 0 0.75em 2.5em;
+    overflow: hidden;
+    z-index: 5;
+}
+
+.blog-card.python {
+    background-image: url('https://sg.fiverrcdn.com/photos/115522316/original/0f1ff5d0ae8e6d044d936feaa91630dcec3a0941.jpg?1533894592');
+}
+
+.blog-card.web {
+    background: url('https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2016/12/improving-website-performance-using-a-content-delivery-network-cdn.jpg');
+}
+
+.content-container {
+    margin-right: -5vw;
+}
+
+.category {
+    display: inline-block;
+    background: #e23f7e;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    min-width: 45px;
+    border-radius: 5px;
+    box-shadow: 0 0 1px rgba(172, 28, 56, .1), 0 2px 6px rgba(172, 28, 56, .175);
+    margin: 3vh 2px 2.5vh;
+    padding: 6px 8px;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.category.python {
+    background: #2a9d5a;
+}
+
+.category:hover {
+    box-shadow: 0 0 1px rgba(10, 96, 58, .2), 0 3px 6px rgba(39, 44, 49, .25);
+}
+
+h6 {
+    background: transparent;
+    color: rgba(0, 0, 0, 0.9);
+    font-family: 'Niramit', sans-serif;
+    font-size: 2.3em;
+    font-weight: 800;
+    line-height: 1.2;
+    height: auto;
+    border-bottom: 2px solid rgba(204, 204, 204, 0.75);
+    margin-top: 0.3em;
+    margin-bottom: 0.35em;
+    padding-bottom: 0.2em;
+}
+
+.blogtext {
+    margin-top: 3vh;
+
+    font-size: 1.25em;
+    line-height: 1.4;
+    width: 100%;
+    margin-top: 0.3em;
+    padding-left: 2px;
+    z-index: 9;
+}
+
+.post-detail {
+    color: rgba(0, 0, 0, 0.55);
+    margin-top: 2vh;
+    padding-left: 2px;
+    vertical-align: middle;
+}
+
+.post-detail .icon svg {
+    position: relative;
+    width: 14px;
+    top: 2.25px;
+    margin-right: 7px;
+}
+
+.post-detail .date {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 1em;
+}
+
+.credit {
+    position: relative;
+    font-family: 'Niramit', sans-serif;
+    font-size: 1.1em;
+    font-weight: 200;
+    text-align: center;
+    bottom: 10.3em;
+    padding: 0.6em 2.5em 0.6em;
+}
+
+.btn.green.circular {
+    font-size: 1.1em;
+}
+
+.btn {
+    top: 0.4rem;
+}
+
+.btn:hover {
+    color: #18DFDF;
+}
+
+
+/* CONTAINERS */
+
+main {
+    margin: auto;
+    max-width: 380px;
+}
+
+section {
+    background: #fff;
+    border-radius: .25em;
+    box-shadow: 0 0px 10px -14px rgba(0, 0, 0, 0.25);
+    margin: 1.5em;
+    overflow: hidden;
+}
+
+figure {
+    height: 12em;
+}
+
+article {
+    padding: 1em;
+    padding-bottom: 1.7em;
+}
+
+
+/* IMAGE */
+
+img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+
+/* TYPOGRAPHY */
+
+h8 {
+    color: #000000;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding-bottom: 0.9rem;
+    text-align: center;
+    margin-top: 0rem;
+}
+
+.resourcetext {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.8em;
+    color: #484848;
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+@supports (display: grid) {
+    @media only screen and (min-width: 768px) {
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-gap: 3.8em;
+            max-width: 1140px;
+            padding: 1.5em;
+        }
+        section {
+            margin: 0;
+        }
+    }
+}

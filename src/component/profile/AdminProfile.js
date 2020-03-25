@@ -1,23 +1,21 @@
 import React, { Component } from 'react'
-import CompanyBanner from '../banner/CompanyBanner'
+import AdminBanner from '../banner/AdminBanner'
 import DashboardBanner from '../banner/DashboardBanner'
 import firebase from '../../firebase'
 import spn from '../../assets/91.gif'
-
-export class CompanyProfile extends Component {
+export class AdminProfile extends Component {
     constructor(props){
         super(props)
         this.state={
             profile:false,
             id:'',
-            stdProfile:[],
+            adminprofile:[],
             spinner:true
 
         }
     }
 
-
-   async componentDidMount(){
+    async componentDidMount(){
         this.currentUser()
         setTimeout(() => {
             this.setState({spinner:false})
@@ -28,37 +26,31 @@ export class CompanyProfile extends Component {
 
   
     }
-
     checkUserProfile=()=>{
         console.log(this.state.id)
 
         const db= firebase.firestore()
         setTimeout(() => {
-            const getDoc= db.collection('createcompany')
+            const getDoc= db.collection('createadmin')
         getDoc.where('id', '==', this.state.id).get()
         .then(res=>{
             res.forEach((result)=>{
                 this.setState({profile:true})
-               this.setState({stdProfile:result.data()})
-               console.log(this.state.stdProfile)
+               this.setState({adminprofile:result.data()})
+               console.log(this.state.adminprofile)
+               console.log(this.state.adminprofile)
 
             })
         })
         }, 3000);
-        
-        
-
-        
-       
+ 
         
     }
-
     currentUser=()=>{
         const currentUser=localStorage.getItem('user')
         this.setState({id:currentUser})
         console.log(currentUser)
-        
-        
+  
     }
     render() {
         console.log(this.state)
@@ -72,7 +64,7 @@ export class CompanyProfile extends Component {
         else{
             switch (this.state.profile) {
                 case true:
-                    banner=<CompanyBanner profile={this.state.stdProfile} />
+                    banner=<AdminBanner profile={this.state.adminprofile} />
                     break;
                 case false:
                     banner=<DashboardBanner/>
@@ -82,14 +74,13 @@ export class CompanyProfile extends Component {
                     break;
             }
         }
-       
         return (
             <div>
-                {spiner}
-                {banner}
-            </div>
+            {spiner}
+            {banner}
+        </div>
         )
     }
 }
 
-export default CompanyProfile
+export default AdminProfile

@@ -1,32 +1,27 @@
 import React, { Component } from 'react'
 import Navbar from '../layout/navbar/Navbar'
 import Sidebar from '../layout/sidebar/Sidebar'
-import CompanyForm from './CompanyForm'
+import AdminForm from './AdminForm'
 import firebase from '../../firebase'
 import {withRouter} from 'react-router'
-export class CreateCompany extends Component {
+export class CreateAdmin extends Component {
 	constructor(props){
 		super(props)
 		this.state={
-			companyname:'',
-			email:'',
-			founded:'',
-			contact:'',
-            ceo:'',
-            noe:'',
-			address:'',
+            name:'',
+            department:'',
+            email:'',
 			exist:false,
 			success:false
 		}
 	}
 
 	
-	onRadioChange=(e)=>this.setState({gender:e.target.value})
 	onChange=(e)=>this.setState({[e.target.name]:e.target.value})
 	onSubmit=(e)=>{
 		const{history}=this.props
 
-		const{companyname,email,founded,contact,ceo,noe,address}=this.state
+		const{name,email,department}=this.state
 
 
 		e.preventDefault()
@@ -35,7 +30,8 @@ export class CreateCompany extends Component {
 
 		const db=firebase.firestore()
 		if(currentUser.uid){
-			const getDoc= db.collection('createcompany')
+            console.log(currentUser.uid)
+			const getDoc= db.collection('createadmin')
 			setTimeout(() => {
 				getDoc.where('id', '==', currentUser.uid).get()
 					.then(res=>{
@@ -54,21 +50,21 @@ export class CreateCompany extends Component {
 			}, 3000);
         
 
-		}
+        }
+        setTimeout(() => {
+            db.collection('createadmin').add({id:currentUser.uid,name,email,department})
+    .then(res=>{
+        this.setState({success:true})
+        history.push('/dashboard')
 
-		setTimeout(() => {
-			db.collection('createcompany').add({id:currentUser.uid,companyname,email,founded,contact,ceo,noe,address})
-	.then(res=>{
-		this.setState({success:true})
-		history.push('/dashboard')
-
-		
-	})
-	.catch(err=>{
-		alert(err)
-	})
-		}, 5000);
         
+    })
+    .catch(err=>{
+        alert(err)
+    })
+        }, 5000);
+
+	
         console.log(this.state)
 		
 
@@ -84,7 +80,7 @@ export class CreateCompany extends Component {
 				<Sidebar />
 				</div>
 				<div style={{flexGrow:'10'}}>
-					<CompanyForm onChange={this.onChange} onSubmit={this.onSubmit} state={this.state}  success={this.state.success} />
+					<AdminForm onChange={this.onChange} onSubmit={this.onSubmit} state={this.state}  success={this.state.success} />
 					</div>
 				</div>
 				
@@ -94,4 +90,4 @@ export class CreateCompany extends Component {
     }
 }
 
-export default withRouter(CreateCompany)
+export default withRouter(CreateAdmin)

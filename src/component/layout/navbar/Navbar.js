@@ -24,7 +24,6 @@ export class Navbar extends Component {
 
 <nav className="navbar navbar-expand-lg navbar-light bg-light">
   <NavLink className="navbar-brand" to='/dashboard'>  
-  <i className="fas fa-bars"></i>
 </NavLink>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
@@ -35,10 +34,10 @@ export class Navbar extends Component {
         <NavLink className="nav-link" to='/dashboard'>Home <span className="sr-only">(current)</span></NavLink>
       </li>
       <li className="nav-item">
-        <NavLink className="nav-link" to=''>Vacancy</NavLink>
+        <NavLink className="nav-link" to='/dashboard/vacancy'>Vacancy</NavLink>
       </li>
       <li className="nav-item">
-        <NavLink className="nav-link" to=''>Company</NavLink>
+      <NavLink className="nav-link" to='/dashboard/company'>Company</NavLink>
       </li>
       <li className="nav-item">
         <NavLink className="nav-link" to='/dashboard/studentlist'>Sudent</NavLink>
@@ -49,7 +48,6 @@ export class Navbar extends Component {
           Welcome {this.state.email}
         </NavLink>
         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <NavLink className="dropdown-item" to=''>profile</NavLink>
           <NavLink className="dropdown-item" to=''></NavLink>
           <NavLink className="dropdown-item" to='' onClick={()=>(firebase.auth().signOut())}>signOut</NavLink>
         </div>

@@ -11,6 +11,9 @@ import StudentList from './component/dashboard/StudentList'
 import CreateCompany from './component/form/CreateCompany'
 import CreateVacancy from './component/form/CreateVacancy'
 import ForgotPassword from'./component/form/ForgotPassword'
+import VacancyList from './component/dashboard/VacancyList'
+import CreateAdmin from './component/form/CreateAdmin'
+import CompanyList from './component/dashboard/CompanyList';
 
 class App extends Component {
   constructor(props){
@@ -45,6 +48,12 @@ authListner=()=>{
         <Route exact path='/dashboard/companyform'><CreateCompany/></Route>
         <Route exact path='/dashboard/createvacancy'><CreateVacancy/> </Route>
         <Route exact path='/forgotpassword'><ForgotPassword/> </Route>
+        <Route exact path='/dashboard/vacancy'><VacancyList/> </Route>
+        <Route exact path='/dashboard/createadmin'><CreateAdmin/> </Route>
+        <Route exact path='/dashboard/company'><CompanyList/> </Route>
+
+
+
 
 
 

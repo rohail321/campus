@@ -100,7 +100,7 @@ export class Signup extends Component {
 
 
       </fieldset>
-      <button type="submit" className='btn btn-success'>Sign Up</button>
+      <button type="submit" className='btn btn-success' style={{height:'50px',fontSize:'20px'}}>Sign Up</button>
 
 
       
