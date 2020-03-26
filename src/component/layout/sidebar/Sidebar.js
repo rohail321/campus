@@ -3,29 +3,63 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import {NavLink} from 'react-router-dom'
+import firebase from '../../../firebase'
 
 
 export class Sidebar extends Component {
     constructor(props){
         super(props)
         this.state={
-           
+          email:"",
+          user:'',
+          id:"",
           bar:'false'
         }
     }
+    componentDidMount(){
+      this.currentUser().then((data)=>{
+      
+         this.setState({email:data.email})
+         this.setState({id:data.uid})
+         this.getUser()
 
+     
+      })
+
+     
+     
+ }
+ currentUser=()=>{
+   return new Promise((res,rej)=>{
+     firebase.auth().onAuthStateChanged((user)=>{
+       if(user)
+       {res(user)}
+       else{rej('False')}
+     })
+   })
+ }
+ getUser=async ()=>{
+   const db=await firebase.firestore()
+     const getDoc=await db.collection('user')
+     const doc=getDoc.where('id', '==', this.state.id).get()
+     ;(await doc).forEach((data)=>{
+       this.setState({user:data.data().user})
+     })
+ }
 
     
     render() {
         return (
             <div className="sidebar" style={this.state.bar?sidebar:sidebar1}>
           <List disablePadding dense>
-      <ListItem button>
+            {this.state.user==='company'?null:(<div><ListItem button>
         <NavLink to='/dashboard/createprofile' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Profile</NavLink> 
       
-      </ListItem>
-      <hr/>
-      <ListItem button>
+      </ListItem><hr/></div>)}
+      
+      
+      {this.state.user=='student'?null:(<div>
+        <ListItem button>
       <NavLink to='/dashboard/companyform' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Company</NavLink> 
       </ListItem>
       <hr/>
@@ -33,11 +67,13 @@ export class Sidebar extends Component {
       <NavLink to='/dashboard/createvacancy' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Vacancy</NavLink> 
       </ListItem>
       <hr/>
+      </div>)}
 
-      <ListItem button>
+      {this.state.user==='student'||'company'?'':(<div><ListItem button>
       <NavLink to='/dashboard/createadmin' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Admin</NavLink> 
       </ListItem>
-      <hr/>
+      <hr/></div>)}
+      
     </List>
     </div>
           

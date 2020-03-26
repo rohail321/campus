@@ -22,17 +22,18 @@ export class Login extends Component {
 		e.preventDefault()
 		firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
 		.then(res=>{
-			setTimeout(() => {
-				
-			}, 2000);
-			const users =firebase.auth().currentUser
-			
-		if(!users.emailVerified){
-			history.push('/verifyemail')
+		
+			firebase.auth().onAuthStateChanged((users)=>{
+				if(!users.emailVerified){
+					history.push('/verifyemail')
+		
+				}
+					else{
+						history.push('/dashboard')}
+			})
 
-		}
-			else{console.log(res)
-				history.push('/dashboard')}
+			
+	
 		})
 		.catch(err=>{
 			alert(err)

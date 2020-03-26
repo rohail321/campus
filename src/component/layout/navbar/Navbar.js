@@ -6,16 +6,41 @@ export class Navbar extends Component {
     constructor(props){
         super(props)
         this.state={
-            email:""
+            email:"",
+            user:'',
+            id:""
         }
     }
 
-    async componentDidMount(){
-        let user =await firebase.auth().currentUser
-        if(user!=null){
-            const email=user.email
-            this.setState({email:email})
-        }
+    componentDidMount(){
+         this.currentUser().then((data)=>{
+         
+            this.setState({email:data.email})
+            this.setState({id:data.uid})
+            this.getUser()
+
+        
+         })
+
+        
+        
+    }
+    currentUser=()=>{
+      return new Promise((res,rej)=>{
+        firebase.auth().onAuthStateChanged((user)=>{
+          if(user)
+          {res(user)}
+          else{rej('False')}
+        })
+      })
+    }
+    getUser=async ()=>{
+      const db=await firebase.firestore()
+        const getDoc=await db.collection('user')
+        const doc=getDoc.where('id', '==', this.state.id).get()
+        ;(await doc).forEach((data)=>{
+          this.setState({user:data.data().user})
+        })
     }
 
     render() {
@@ -36,12 +61,14 @@ export class Navbar extends Component {
       <li className="nav-item">
         <NavLink className="nav-link" to='/dashboard/vacancy'>Vacancy</NavLink>
       </li>
-      <li className="nav-item">
+      {this.state.user=='company'?'':(<li className="nav-item">
       <NavLink className="nav-link" to='/dashboard/company'>Company</NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to='/dashboard/studentlist'>Sudent</NavLink>
-      </li>
+      </li>)}
+      
+      {this.state.user=='student'?'':(<li className="nav-item">
+        <NavLink className="nav-link" to='/dashboard/studentlist' >Sudent</NavLink>
+      </li>)}
+      
     
       <li className="nav-item dropdown">
         <NavLink className="nav-link dropdown-toggle" to='' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
