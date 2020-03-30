@@ -2,7 +2,6 @@ import React from 'react'
 import './List.css'
 
 const List = ({profile,deleteUser,user}) => {
-    console.log(profile)
 
    let student= profile.map(data=>(
         <div key={data.fullname} className="container">

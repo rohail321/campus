@@ -3,7 +3,6 @@ import Navbar from '../layout/navbar/Navbar'
 import Sidebar from '../layout/sidebar/Sidebar'
 import VacancyForm from './VacancyForm'
 import firebase from '../../firebase'
-import {withRouter} from 'react-router'
 
 export class CreateVacancy extends Component {
     constructor(props){

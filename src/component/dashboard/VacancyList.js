@@ -80,7 +80,7 @@ export class VacancyList extends Component {
         let spiner
         let content
         if(this.state.spinner){
-            spiner=(<div  style={{marginLeft:'500px',marginTop:"250px",width:'200px',height:'40px'}}><img src={Spn} style={{width:'80px'}}/>
+            spiner=(<div  style={{marginLeft:'500px',marginTop:"250px",width:'200px',height:'40px'}}><img src={Spn} alt='pic' style={{width:'80px'}}/>
             <h4>Please Wait</h4></div>)
 
         }

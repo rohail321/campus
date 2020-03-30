@@ -61,11 +61,11 @@ export class Navbar extends Component {
       <li className="nav-item">
         <NavLink className="nav-link" to='/dashboard/vacancy'>Vacancy</NavLink>
       </li>
-      {this.state.user=='company'?'':(<li className="nav-item">
+      {this.state.user==='company'?'':(<li className="nav-item">
       <NavLink className="nav-link" to='/dashboard/company'>Company</NavLink>
       </li>)}
       
-      {this.state.user=='student'?'':(<li className="nav-item">
+      {this.state.user==='student'?'':(<li className="nav-item">
         <NavLink className="nav-link" to='/dashboard/studentlist' >Sudent</NavLink>
       </li>)}
       

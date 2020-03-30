@@ -1,6 +1,5 @@
 import React from 'react'
 import './ProfileBanner.css'
-import firebase from '../../firebase'
 
 function ProfileBanner({profile}) {
 

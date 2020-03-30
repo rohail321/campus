@@ -20,24 +20,29 @@ export class Login extends Component {
     onSubmit=(e)=>{
         const {history}=this.props
 		e.preventDefault()
-		firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
-		.then(res=>{
-		
-			firebase.auth().onAuthStateChanged((users)=>{
-				if(!users.emailVerified){
-					history.push('/verifyemail')
-		
-				}
-					else{
-						history.push('/dashboard')}
-			})
-
+		firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+		.then(()=>{
+			return firebase.auth().signInWithEmailAndPassword(this.state.email,this.state.password)
+			.then(res=>{
 			
+				firebase.auth().onAuthStateChanged((users)=>{
+					if(!users.emailVerified){
+						history.push('/verifyemail')
+			
+					}
+						else{
+							history.push('/dashboard')}
+				})
 	
+				
+		
+			})
+			.catch(err=>{
+				alert(err)
+			})
 		})
-		.catch(err=>{
-			alert(err)
-		})
+
+		
 		
 		
 
@@ -46,7 +51,6 @@ export class Login extends Component {
 
 
 
-console.log(this.state)
     }
 
     render() {

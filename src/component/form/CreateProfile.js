@@ -26,20 +26,19 @@ export class CreateProfile extends Component {
 	onRadioChange=(e)=>this.setState({gender:e.target.value})
 	onChange=(e)=>this.setState({[e.target.name]:e.target.value})
 	onSubmit=(e)=>{
+		e.preventDefault()
 		const{history}=this.props
 		const{fullname,email,degree,major,experince,cgpa,gender,dob,contact,semester,field}=this.state
-		e.preventDefault()
-		const currentUser=	firebase.auth().currentUser
-		const db=firebase.firestore()
-		if(currentUser.uid){
+		this.currentUser().then((data)=>{
+			const db=firebase.firestore()
+		if(data){
 			const getDoc= db.collection('createprofile')
-			setTimeout(() => {
-				getDoc.where('id', '==', currentUser.uid).get()
+				getDoc.where('id', '==', data).get()
 					.then(res=>{
 						res.forEach((result)=>{
 							let dt=result.data()
 							const{id}=dt
-						if(currentUser.uid===id){
+						if(data===id){
 							this.setState({exist:true})
 						}
 						else{
@@ -48,14 +47,11 @@ export class CreateProfile extends Component {
 						
 						})
 					})
-			}, 3000);
         
 
 		}
-		setTimeout(() => {
-			db.collection('createprofile').add({id:currentUser.uid,fullname,email,degree,major,experince,cgpa,gender,dob,contact,semester,field})
+			db.collection('createprofile').add({id:data,fullname,email,degree,major,experince,cgpa,gender,dob,contact,semester,field})
 		.then(res=>{
-			console.log(res)
 			this.setState({success:true})
 			history.push('/dashboard')
 
@@ -64,11 +60,26 @@ export class CreateProfile extends Component {
 		.catch(err=>{
 			alert(err)
 		})
-		}, 5000);
+
+		})
+		
+		
 		
 
 		
 
+	}
+	currentUser=()=>{
+		return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })
 	}
 
     render() {

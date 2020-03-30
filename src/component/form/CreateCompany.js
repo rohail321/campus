@@ -16,7 +16,8 @@ export class CreateCompany extends Component {
             noe:'',
 			address:'',
 			exist:false,
-			success:false
+			success:false,
+			id:""
 		}
 	}
 
@@ -24,25 +25,22 @@ export class CreateCompany extends Component {
 	onRadioChange=(e)=>this.setState({gender:e.target.value})
 	onChange=(e)=>this.setState({[e.target.name]:e.target.value})
 	onSubmit=(e)=>{
+		e.preventDefault()
 		const{history}=this.props
 
 		const{companyname,email,founded,contact,ceo,noe,address}=this.state
-
-
-		e.preventDefault()
-
-		const currentUser=	firebase.auth().currentUser
+		this.currentUser().then((data)=>{
+			this.setState({id:data})
 
 		const db=firebase.firestore()
-		if(currentUser.uid){
+		if(data){
 			const getDoc= db.collection('createcompany')
-			setTimeout(() => {
-				getDoc.where('id', '==', currentUser.uid).get()
+				getDoc.where('id', '==', data).get()
 					.then(res=>{
 						res.forEach((result)=>{
 							let dt=result.data()
 							const{id}=dt
-						if(currentUser.uid===id){
+						if(data===id){
 							this.setState({exist:true})
 						}
 						else{
@@ -51,13 +49,11 @@ export class CreateCompany extends Component {
 						
 						})
 					})
-			}, 3000);
         
 
 		}
 
-		setTimeout(() => {
-			db.collection('createcompany').add({id:currentUser.uid,companyname,email,founded,contact,ceo,noe,address})
+			db.collection('createcompany').add({id:data,companyname,email,founded,contact,ceo,noe,address})
 	.then(res=>{
 		this.setState({success:true})
 		history.push('/dashboard')
@@ -67,13 +63,26 @@ export class CreateCompany extends Component {
 	.catch(err=>{
 		alert(err)
 	})
-		}, 5000);
         
-        console.log(this.state)
+		})
+		
+
+		
 		
 
 	}
-	
+	currentUser=()=>{
+		return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })
+	}
 
     render() {
         return (

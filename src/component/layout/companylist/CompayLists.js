@@ -3,7 +3,6 @@ import './CompayList.css'
 
 
 const CompanyList = ({company,user,deleteuser,}) => {
-    console.log(company)
      let companycard=company.map(data=>(
         <section key={data.id} className="blogsection2">
 

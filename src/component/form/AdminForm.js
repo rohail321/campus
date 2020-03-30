@@ -3,11 +3,10 @@ import './Form.css'
 
 
 const AdminForm = ({onChange,onSubmit,state,success}) => {
-	console.log(state)
     return (
         <div>
             
-			<div class="alert alert-danger" style={{visibility:`${state.exist?'visible':'hidden'}`}}>
+			<div className="alert alert-danger" style={{visibility:`${state.exist?'visible':'hidden'}`}}>
 				<p>Admin profile already exist</p>
 				</div>
 				<form className="contact1-form validate-form" onSubmit={onSubmit}>

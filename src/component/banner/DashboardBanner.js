@@ -1,6 +1,5 @@
 import React from 'react'
 import './DashboardBanner.css'
-import {NavLink} from 'react-router-dom'
 
 const DashboardBanner = () => {
     return (

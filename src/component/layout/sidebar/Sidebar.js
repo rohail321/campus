@@ -1,7 +1,6 @@
 import React,{Component} from 'react'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
 import {NavLink} from 'react-router-dom'
 import firebase from '../../../firebase'
 
@@ -52,13 +51,13 @@ export class Sidebar extends Component {
         return (
             <div className="sidebar" style={this.state.bar?sidebar:sidebar1}>
           <List disablePadding dense>
-            {this.state.user==='company'?null:(<div><ListItem button>
+            <ListItem button>
         <NavLink to='/dashboard/createprofile' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Profile</NavLink> 
       
-      </ListItem><hr/></div>)}
+      </ListItem><hr/>
       
       
-      {this.state.user=='student'?null:(<div>
+      {this.state.user==='student'?null:(<div>
         <ListItem button>
       <NavLink to='/dashboard/companyform' style={{fontFamily:"Roboto",fontSize:'17px',fontWeight:'bold'}}> Create Company</NavLink> 
       </ListItem>

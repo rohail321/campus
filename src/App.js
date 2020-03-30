@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {BrowserRouter as Router,Route,Switch} from 'react-router-dom'
+import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom'
 import Login from './component/auth/Login'
 import Signup from './component/auth/Signup'
 import Dashboard from './component/dashboard/Dashboard'
@@ -21,42 +21,51 @@ class App extends Component {
     super(props)
     this.state={
       isAuth:true,
-      login:true
+      email:''
     }
   }
   componentDidMount(){
-    this.authListner()
+    this.authListner().then((user)=>{
+      this.setState({email:user.email})
+    })
   }
 authListner=()=>{
-  firebase.auth().onAuthStateChanged((user)=>{
-    if(user){
-      localStorage.setItem('user',user.uid)
-      this.setState({isAuth:true})
-      this.setState({login:false})
+  return new Promise((res,rej)=>{
+    firebase.auth().onAuthStateChanged((user)=>{
+      if(user){
+        res(user)
+       
+  
+      }
+      else{
+        rej('false')
+      }
+    })
+    
 
-    }
-    else{
-      localStorage.removeItem('user')
-      this.setState({isAuth:false})
-
-    }
   })
+  
+    
+
 }
 
   render(){
     return (
       <Router>
+                <Route exact path='/'>{!this.state.email?(<Login/>):(<Redirect to='/dashboard' />)}</Route>
+                <Route exact path='/signup'>{!this.state.email?(<Signup/>):(<Redirect to='/dashboard' />)}</Route>
+                <Route exact path='/forgotpassword'>{!this.state.email?(<ForgotPassword/>):(<Redirect to='/dashboard' />)} </Route>
+
+
+
       <Switch>
         {/* {this.state.login&&()} */}
-        <Route exact path='/'><Login/></Route>
-        <Route exact path='/signup'><Signup/></Route>
         <PrivateRoute exact path='/dashboard' isAuth={this.state.isAuth} component={Dashboard}/>
         <PrivateRoute exact path='/dashboard/createprofile'isAuth={this.state.isAuth} component={CreateProfile} />
         <Route exact path='/verifyemail'><Verification/></Route>
         <PrivateRoute exact path='/dashboard/studentlist'isAuth={this.state.isAuth} component={StudentList} />
         <PrivateRoute exact path='/dashboard/companyform' isAuth={this.state.isAuth} component={CreateCompany} />
         <PrivateRoute exact path='/dashboard/createvacancy' isAuth={this.state.isAuth} component={CreateVacancy} /> 
-        <Route exact path='/forgotpassword'><ForgotPassword/> </Route>
         <PrivateRoute exact path='/dashboard/vacancy' isAuth={this.state.isAuth} component={VacancyList } />
         <PrivateRoute exact path='/dashboard/createadmin' isAuth={this.state.isAuth} component={CreateAdmin} /> 
         <PrivateRoute exact path='/dashboard/company' isAuth={this.state.isAuth} component={CompanyList } />
@@ -79,4 +88,4 @@ authListner=()=>{
   
 }
 
-export default App;
+export default  App;

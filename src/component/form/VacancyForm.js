@@ -8,7 +8,7 @@ const VacancyForm = ({onChange,onSubmit,state,success}) => {
             
 				
 				<form className="contact1-form validate-form" onSubmit={onSubmit}>
-                <div class="alert alert-success" style={{visibility:`${success?'visible':'hidden'}`}}>
+                <div className="alert alert-success" style={{visibility:`${success?'visible':'hidden'}`}}>
                     <strong>Success!</strong> Vacancy Created succesfully.
                 </div>
 					<span className="contact1-form-title">

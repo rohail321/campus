@@ -76,7 +76,7 @@ export class StudentProfile extends Component {
         let banner
         let spiner
         if(this.state.spinner){
-            spiner=(<div  style={{marginLeft:'500px',marginTop:"250px"}}><img src={spn} style={{width:'80px'}} />
+            spiner=(<div  style={{marginLeft:'500px',marginTop:"250px"}}><img alt='pic' src={spn} style={{width:'80px'}} />
             <h4>Please Wait</h4></div>)
 
         }

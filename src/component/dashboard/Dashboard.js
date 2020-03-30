@@ -38,7 +38,6 @@ export class Dashboard extends Component {
                 this.setState({profile:true})
                this.setState({user:result.data().user})
                this.setState({spinner:false})
-               console.log(this.state)
 
 
 
@@ -66,7 +65,7 @@ export class Dashboard extends Component {
         let usr
 
         if(this.state.spinner){
-            spiner=(<div  style={{marginLeft:'500px',marginTop:"250px"}}><img src={spn} style={{width:'80px'}} />
+            spiner=(<div  style={{marginLeft:'500px',marginTop:"250px"}}><img src={spn} alt='pic' style={{width:'80px'}} />
             <h4>Please Wait</h4></div>)
         }
         else if(!this.state.spinner){

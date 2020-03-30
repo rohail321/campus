@@ -3,7 +3,6 @@ import './VacancyList.css'
 
 
 const Vacancylist = ({vacancy,deleteUser,user}) => {
-    console.log(vacancy)
      let vacancycard=vacancy.map(data=>(
         <section key={data.id} className="blogsection2">
 

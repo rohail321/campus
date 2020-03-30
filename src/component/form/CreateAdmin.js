@@ -19,26 +19,22 @@ export class CreateAdmin extends Component {
 	
 	onChange=(e)=>this.setState({[e.target.name]:e.target.value})
 	onSubmit=(e)=>{
+		e.preventDefault()
+
 		const{history}=this.props
 
 		const{name,email,department}=this.state
 
-
-		e.preventDefault()
-
-		const currentUser=	firebase.auth().currentUser
-
-		const db=firebase.firestore()
-		if(currentUser.uid){
-            console.log(currentUser.uid)
+		this.currentUser().then((data)=>{
+			const db=firebase.firestore()
+		if(data){
 			const getDoc= db.collection('createadmin')
-			setTimeout(() => {
-				getDoc.where('id', '==', currentUser.uid).get()
+				getDoc.where('id', '==', data).get()
 					.then(res=>{
 						res.forEach((result)=>{
 							let dt=result.data()
 							const{id}=dt
-						if(currentUser.uid===id){
+						if(data===id){
 							this.setState({exist:true})
 						}
 						else{
@@ -47,12 +43,10 @@ export class CreateAdmin extends Component {
 						
 						})
 					})
-			}, 3000);
         
 
         }
-        setTimeout(() => {
-            db.collection('createadmin').add({id:currentUser.uid,name,email,department})
+            db.collection('createadmin').add({id:data,name,email,department})
     .then(res=>{
         this.setState({success:true})
         history.push('/dashboard')
@@ -62,12 +56,26 @@ export class CreateAdmin extends Component {
     .catch(err=>{
         alert(err)
     })
-        }, 5000);
+		})
 
-	
-        console.log(this.state)
+			
 		
 
+	
+		
+
+	}
+	currentUser=()=>{
+		return new Promise((res,rej)=>{
+            firebase.auth().onAuthStateChanged((user)=>{
+                if(user){
+                    res(user.uid)
+                }
+                else{
+                    rej('False')
+                }
+            })
+        })
 	}
 	
 

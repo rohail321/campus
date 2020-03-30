@@ -6,12 +6,12 @@ const Form = ({onChange,onSubmit,state,onRadioChange,success}) => {
     return (
         <div>
             
-			<div class="alert alert-danger" style={{visibility:`${state.exist?'visible':'hidden'}`}}>
+			<div className="alert alert-danger" style={{visibility:`${state.exist?'visible':'hidden'}`}}>
 				<p>Admin profile already exist</p>
 				</div>
 				<form className="contact1-form validate-form" onSubmit={onSubmit}>
 					
-                <div class="alert alert-success" style={{visibility:`${success?'visible':'hidden'}`}}>
+                <div className="alert alert-success" style={{visibility:`${success?'visible':'hidden'}`}}>
                     <strong>Success!</strong> Profile Created succesfully.
                 </div>
 					<span className="contact1-form-title">
@@ -41,7 +41,7 @@ const Form = ({onChange,onSubmit,state,onRadioChange,success}) => {
 
 					</div>
                     
-                    <div class="form-check-inline" >
+                    <div className="form-check-inline" >
                         <div style={{marginLeft:'20px'}}>
                         <input type="radio" id="male" value="male" checked={state.gender==='male'} onChange={onRadioChange}  name="male"  />
                     <label htmlFor="male" className="light">Male</label><br/>
